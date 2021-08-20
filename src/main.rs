@@ -20,15 +20,35 @@ fn main() {
             }
 
             // check row
-            let valid_row = {
-                let one_queen = false;
+            let mut one_queen = false;
 
-                for c in 0..row.len() {
-                    if c {}
+            for c in 0..row.len() {
+                if row[c] {
+                    if one_queen {
+                        println!("invalid");
+                        return;
+                    }
+                    one_queen = true;
                 }
+            }
 
-                true
-            };
+            // Check column
+            one_queen = false;
+
+            for r in 0..board.len() {
+                if board[r][column_index] {
+                    if one_queen {
+                        println!("invalid");
+                        return;
+                    }
+                    one_queen = true;
+                }
+            }
+
+            // Check diagonal
+
+
+
         }
     }
 }
