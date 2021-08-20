@@ -45,9 +45,9 @@ fn main() {
                 }
             }
 
-            // Check diagonal
-            let mut row_start_index = (column_index-row_index).max(0);
-            let mut column_start_index = (row_index-column_index).max(0);
+            // Check right diagonal
+            let mut row_start_index = (column_index as i32 -row_index as i32 ).max(0) as usize;
+            let mut column_start_index = (row_index as i32 -column_index as i32 ).max(0) as usize;
 
             one_queen = false;
             while row_start_index < row.len() && column_start_index < board.len() {
@@ -61,6 +61,25 @@ fn main() {
                 row_start_index += 1;
                 column_start_index += 1;
             }
+
+            // Check left diagonal
+            let mut row_start_index = (column_index as i32 + row_index as i32 ).max(board.len() as i32) as i32;
+            let mut column_start_index = (row_index as i32 - column_index as i32 ).max(0) as usize;
+
+            one_queen = false;
+            while row_start_index >= 0 && column_start_index < board.len() {
+                if board[row_start_index as usize][column_start_index] {
+                    if one_queen {
+                        println!("invalid");
+                        return;
+                    }
+                    one_queen = true;
+                }
+                row_start_index -= 1;
+                column_start_index += 1;
+            }
         }
     }
+
+    println!("valid");
 }
