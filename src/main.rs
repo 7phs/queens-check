@@ -46,9 +46,21 @@ fn main() {
             }
 
             // Check diagonal
+            let mut row_start_index = (column_index-row_index).max(0);
+            let mut column_start_index = (row_index-column_index).max(0);
 
-
-
+            one_queen = false;
+            while row_start_index < row.len() && column_start_index < board.len() {
+                if board[row_start_index][column_start_index] {
+                    if one_queen {
+                        println!("invalid");
+                        return;
+                    }
+                    one_queen = true;
+                }
+                row_start_index += 1;
+                column_start_index += 1;
+            }
         }
     }
 }
