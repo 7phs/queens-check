@@ -7,16 +7,16 @@
 // .....*..
 // ...*....
 
-use std::io::{stdin, BufReader, BufRead};
+use std::io::{BufRead, BufReader, stdin};
 
 fn main() {
     let board: Vec<Vec<bool>> = BufReader::new(stdin()).lines().
-        map(|l| l.unwrap().chars().into_iter().map(|c| c=='*').collect() ).collect();
+        map(|l| l.unwrap().chars().into_iter().map(|c| c == '*').collect()).collect();
 
     for (row_index, row) in board.iter().enumerate() {
         for (column_index, &cell) in row.iter().enumerate() {
             if !cell {
-                continue
+                continue;
             }
 
             // check row
@@ -46,8 +46,8 @@ fn main() {
             }
 
             // Check right diagonal
-            let mut row_start_index = (column_index as i32 -row_index as i32 ).max(0) as usize;
-            let mut column_start_index = (row_index as i32 -column_index as i32 ).max(0) as usize;
+            let mut row_start_index = (column_index as i32 - row_index as i32).max(0) as usize;
+            let mut column_start_index = (row_index as i32 - column_index as i32).max(0) as usize;
 
             one_queen = false;
             while row_start_index < row.len() && column_start_index < board.len() {
@@ -63,11 +63,11 @@ fn main() {
             }
 
             // Check left diagonal
-            let mut row_start_index = (column_index as i32 + row_index as i32 ).max(board.len() as i32) as i32;
-            let mut column_start_index = (row_index as i32 - column_index as i32 ).max(0) as usize;
+            let mut row_start_index = (row_index as i32 + column_index as i32).min(board.len() as i32 - 1) as i32;
+            let mut column_start_index = (row_index as i32 + column_index as i32).max(0) as usize;
 
             one_queen = false;
-            while row_start_index >= 0 && column_start_index < board.len() {
+            while row_start_index >= 0 && column_start_index < row.len() {
                 if board[row_start_index as usize][column_start_index] {
                     if one_queen {
                         println!("invalid");
